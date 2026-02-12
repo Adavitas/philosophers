@@ -18,13 +18,9 @@ void	log_action(t_philo *ph, char *msg)
 
 	pthread_mutex_lock(&ph->table->mtx_print);
 	pthread_mutex_lock(&ph->table->mtx_stop);
-	if (!ph->table->sim_stop)
-	{
-		elapsed = get_time() - ph->table->t_start;
-		pthread_mutex_unlock(&ph->table->mtx_stop);
+	elapsed = get_time() - ph->table->t_start;
+	if (!ph->table->sim_stop || msg[0] == 'd')
 		printf("%zu %i %s\n", elapsed, ph->id, msg);
-	}
-	else
-		pthread_mutex_unlock(&ph->table->mtx_stop);
+	pthread_mutex_unlock(&ph->table->mtx_stop);
 	pthread_mutex_unlock(&ph->table->mtx_print);
 }

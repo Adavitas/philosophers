@@ -21,10 +21,10 @@ static int	scan_deaths(t_philo *phs, int n)
 	{
 		if (starved(&phs[i]))
 		{
-			log_action(&phs[i], "died");
 			pthread_mutex_lock(&phs->table->mtx_stop);
 			phs->table->sim_stop = 1;
 			pthread_mutex_unlock(&phs->table->mtx_stop);
+			log_action(&phs[i], "died");
 			return (1);
 		}
 	}

@@ -24,6 +24,9 @@ static void	grab_forks(t_philo *ph)
 
 void	do_eat(t_philo *ph)
 {
+	int	l;
+	int	r;
+
 	grab_forks(ph);
 	log_action(ph, "is eating");
 	pthread_mutex_lock(ph->mtx_meal);
@@ -31,20 +34,24 @@ void	do_eat(t_philo *ph)
 	ph->eat_count++;
 	pthread_mutex_unlock(ph->mtx_meal);
 	precise_sleep(ph->tt_eat);
-	pthread_mutex_unlock(
-		&ph->table->forks[(ph->id - 1) % ph->table->nb_philos]);
-	pthread_mutex_unlock(
-		&ph->table->forks[ph->id % ph->table->nb_philos]);
+	l = (ph->id - 1) % ph->table->nb_philos;
+	r = ph->id % ph->table->nb_philos;
+	pthread_mutex_unlock(&ph->table->forks[l]);
+	pthread_mutex_unlock(&ph->table->forks[r]);
 }
 
 void	do_sleep(t_philo *ph)
 {
+	if (sim_ended(ph))
+		return ;
 	log_action(ph, "is sleeping");
 	precise_sleep(ph->tt_sleep);
 }
 
 void	do_think(t_philo *ph)
 {
+	if (sim_ended(ph))
+		return ;
 	log_action(ph, "is thinking");
 }
 
@@ -58,11 +65,8 @@ void	*lifecycle(void *arg)
 	if (ph->table->nb_philos == 1)
 	{
 		log_action(ph, "has taken a fork");
-		precise_sleep(ph->tt_die);
-		log_action(ph, "died");
-		pthread_mutex_lock(&ph->table->mtx_stop);
-		ph->table->sim_stop = 1;
-		pthread_mutex_unlock(&ph->table->mtx_stop);
+		while (!sim_ended(ph))
+			usleep(200);
 		return (arg);
 	}
 	while (!sim_ended(ph))

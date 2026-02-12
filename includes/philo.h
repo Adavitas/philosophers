@@ -40,14 +40,14 @@ struct	s_table
 	int		sim_stop;
 };
 
-int		validate_input(int ac, char **av);
+int		validate_input(int argc, char **argv);
 int		ft_atoi(char *str);
 void	precise_sleep(size_t ms);
 size_t	get_time(void);
 void	run_threads(t_table *tbl);
 void	destroy_all(t_table *tbl);
-void	setup_table(t_table *tbl, char **av);
-void	setup_philos(t_table *tbl, char **av);
+void	setup_table(t_table *tbl, char **argv);
+void	setup_philos(t_table *tbl, char **argv);
 void	*lifecycle(void *arg);
 void	do_eat(t_philo *ph);
 void	do_sleep(t_philo *ph);

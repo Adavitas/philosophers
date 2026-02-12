@@ -5,6 +5,9 @@ void	run_threads(t_table *tbl)
 	int	i;
 
 	tbl->t_start = get_time();
+	i = -1;
+	while (++i < tbl->nb_philos)
+		tbl->philos[i].last_eat = tbl->t_start;
 	pthread_create(&tbl->tid_mon, NULL, observer, tbl->philos);
 	i = -1;
 	while (++i < tbl->nb_philos)

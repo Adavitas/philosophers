@@ -4,7 +4,7 @@ CFLAGS	= -Wall -Wextra -Werror -pthread
 INC		= -I includes
 
 SRC_DIR	= src
-SRCS	= $(SRC_DIR)/main.c \
+SRCS	= $(SRC_DIR)/philosophers.c \
 		  $(SRC_DIR)/parsing.c \
 		  $(SRC_DIR)/time.c \
 		  $(SRC_DIR)/threads.c \
