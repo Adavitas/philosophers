@@ -6,7 +6,7 @@
 /*   By: adavitas <adavitas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 18:20:01 by adavitas          #+#    #+#             */
-/*   Updated: 2026/02/12 21:22:24 by adavitas         ###   ########.fr       */
+/*   Updated: 2026/02/15 20:56:36 by adavitas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	is_numeric(char *str)
 	int	i;
 
 	i = 0;
-	if (!str)
+	if (!str || !str[0])
 		return (0);
 	while (str[i])
 	{
@@ -42,7 +42,7 @@ static int	is_valid_num(char *str)
 
 int	validate_input(int argc, char **argv)
 {
-	int num_philos;
+	int	num_philos;
 
 	if (argc < 5 || argc > 6)
 		return (printf("Usage: ./philo 5 800 200 200 [meals]\n"));
@@ -62,14 +62,18 @@ int	validate_input(int argc, char **argv)
 
 int	ft_atoi(char *str)
 {
-	int	res;
-	int	i;
+	long	res;
+	int		i;
 
 	res = 0;
 	i = 0;
 	if (!str)
 		return (-1);
 	while (str[i] >= '0' && str[i] <= '9')
+	{
 		res = res * 10 + str[i++] - '0';
-	return (res);
+		if (res > 2147483647)
+			return (-1);
+	}
+	return ((int)res);
 }

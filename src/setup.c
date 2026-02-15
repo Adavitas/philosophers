@@ -6,7 +6,7 @@
 /*   By: adavitas <adavitas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 18:20:04 by adavitas          #+#    #+#             */
-/*   Updated: 2026/02/12 17:47:06 by adavitas         ###   ########.fr       */
+/*   Updated: 2026/02/15 20:47:41 by adavitas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static void	setup_philo(t_philo *ph, t_table *tbl, char **argv)
 {
 	ph->table = tbl;
 	ph->mtx_meal = malloc(sizeof(t_mtx));
+	if (!ph->mtx_meal)
+		return ;
 	pthread_mutex_init(ph->mtx_meal, NULL);
 	ph->tt_die = ft_atoi(argv[2]);
 	ph->tt_eat = ft_atoi(argv[3]);
@@ -43,6 +45,8 @@ void	setup_table(t_table *tbl, char **argv)
 	pthread_mutex_init(&tbl->mtx_print, NULL);
 	pthread_mutex_init(&tbl->mtx_stop, NULL);
 	tbl->forks = malloc(sizeof(t_mtx) * tbl->nb_philos);
+	if (!tbl->forks)
+		return ;
 	i = -1;
 	while (++i < tbl->nb_philos)
 		pthread_mutex_init(&tbl->forks[i], NULL);

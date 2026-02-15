@@ -6,7 +6,7 @@
 /*   By: adavitas <adavitas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 18:20:06 by adavitas          #+#    #+#             */
-/*   Updated: 2026/02/12 17:47:25 by adavitas         ###   ########.fr       */
+/*   Updated: 2026/02/15 20:47:55 by adavitas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@ void	run_threads(t_table *tbl)
 	i = -1;
 	while (++i < tbl->nb_philos)
 		tbl->philos[i].last_eat = tbl->t_start;
-	pthread_create(&tbl->tid_mon, NULL, observer, tbl->philos);
 	i = -1;
 	while (++i < tbl->nb_philos)
 		pthread_create(&tbl->philos[i].tid, NULL,
 			lifecycle, &tbl->philos[i]);
+	pthread_create(&tbl->tid_mon, NULL, observer, tbl->philos);
+	pthread_join(tbl->tid_mon, NULL);
 	i = -1;
 	while (++i < tbl->nb_philos)
 		pthread_join(tbl->philos[i].tid, NULL);
-	pthread_join(tbl->tid_mon, NULL);
 }
 
 void	destroy_all(t_table *tbl)

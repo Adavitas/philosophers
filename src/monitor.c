@@ -6,7 +6,7 @@
 /*   By: adavitas <adavitas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 18:19:56 by adavitas          #+#    #+#             */
-/*   Updated: 2026/02/12 17:45:50 by adavitas         ###   ########.fr       */
+/*   Updated: 2026/02/15 20:47:23 by adavitas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ static int	scan_deaths(t_philo *phs, int n)
 	{
 		if (starved(&phs[i]))
 		{
+			log_action(&phs[i], "died");
 			pthread_mutex_lock(&phs->table->mtx_stop);
 			phs->table->sim_stop = 1;
 			pthread_mutex_unlock(&phs->table->mtx_stop);
-			log_action(&phs[i], "died");
 			return (1);
 		}
 	}

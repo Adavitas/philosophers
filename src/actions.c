@@ -6,7 +6,7 @@
 /*   By: adavitas <adavitas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 18:19:35 by adavitas          #+#    #+#             */
-/*   Updated: 2026/02/12 17:43:57 by adavitas         ###   ########.fr       */
+/*   Updated: 2026/02/15 20:55:48 by adavitas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,10 @@ void	do_eat(t_philo *ph)
 	int	l;
 	int	r;
 
+	if (sim_ended(ph))
+		return ;
+	l = (ph->id - 1) % ph->table->nb_philos;
+	r = ph->id % ph->table->nb_philos;
 	grab_forks(ph);
 	log_action(ph, "is eating");
 	pthread_mutex_lock(ph->mtx_meal);
@@ -46,8 +50,6 @@ void	do_eat(t_philo *ph)
 	ph->eat_count++;
 	pthread_mutex_unlock(ph->mtx_meal);
 	precise_sleep(ph->tt_eat);
-	l = (ph->id - 1) % ph->table->nb_philos;
-	r = ph->id % ph->table->nb_philos;
 	pthread_mutex_unlock(&ph->table->forks[l]);
 	pthread_mutex_unlock(&ph->table->forks[r]);
 }
@@ -62,9 +64,17 @@ void	do_sleep(t_philo *ph)
 
 void	do_think(t_philo *ph)
 {
+	size_t	think_time;
+
 	if (sim_ended(ph))
 		return ;
 	log_action(ph, "is thinking");
+	if (ph->table->nb_philos % 2 != 0)
+	{
+		think_time = (ph->tt_eat * 2 - ph->tt_sleep);
+		if (think_time > 0 && think_time < ph->tt_die)
+			precise_sleep(think_time / 2);
+	}
 }
 
 void	*lifecycle(void *arg)
@@ -73,7 +83,7 @@ void	*lifecycle(void *arg)
 
 	ph = (t_philo *)arg;
 	if (ph->id % 2 == 0)
-		precise_sleep(1);
+		precise_sleep(ph->tt_eat / 2);
 	if (ph->table->nb_philos == 1)
 	{
 		log_action(ph, "has taken a fork");
