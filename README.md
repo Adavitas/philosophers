@@ -1,11 +1,16 @@
+<div align="center">
+
 # 🍝 Philosophers
 
 ### A multithreading simulation of the Dining Philosophers Problem, implemented with POSIX threads and mutexes for safe concurrent resource sharing.
 
-[![42 School](https://img.shields.io/badge/42-School-blue?style=for-the-badge)](https://42.fr/)
-[![Language](https://img.shields.io/badge/Language-C-orange?style=for-the-badge)](https://en.wikipedia.org/wiki/C_(programming_language))
-[![Norminette](https://img.shields.io/badge/Norminette-passing-brightgreen?style=for-the-badge)](https://github.com/42School/norminette)
-[![Grade](https://img.shields.io/badge/Grade-125%2F100-success?style=for-the-badge)](https://github.com/Adavitas/philosophers)
+[![42 School](https://img.shields.io/badge/School-000000?style=for-the-badge&logo=42&logoColor=white)](https://42.fr)
+[![Language](https://img.shields.io/badge/Language-C-blue?style=for-the-badge)](https://en.wikipedia.org/wiki/C_(programming_language))
+[![Norminette](https://img.shields.io/badge/Norminette-passing-success?style=for-the-badge)](https://github.com/42School/norminette)
+![Grade](https://img.shields.io/badge/Grade-100%2F100-success?style=for-the-badge)
+
+
+</div>
 
 ---
 
@@ -61,8 +66,8 @@ The simulation follows a strict lifecycle for each philosopher:
 ┌──────────┐     ┌──────────┐     ┌──────────┐
 │ THINKING │ ──► │  EATING  │ ──► │ SLEEPING │ ──┐
 └──────────┘     └──────────┘     └──────────┘   │
-     ▲                                            │
-     └────────────────────────────────────────────┘
+     ▲                                           │
+     └───────────────────────────────────────────┘
 ```
 
 1. **Think** — philosopher waits for forks to become available
@@ -255,9 +260,9 @@ valgrind --tool=helgrind ./philo 5 800 200 200 7
 
 ## 👨‍💻 Author
 
-**Aleksandre Davitashvili** (Adavitas) — 42 Student
+**Aleksandre Davitashvili** (Adavitas) - *42 Student*
 
-[![GitHub](https://img.shields.io/badge/GitHub-Adavitas-181717?style=for-the-badge&logo=github)](https://github.com/Adavitas)
+[![GitHub](https://img.shields.io/badge/GitHub-Adavitas-181717?style=flat&logo=github)](https://github.com/Adavitas)
 
 ---
 
